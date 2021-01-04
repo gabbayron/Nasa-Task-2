@@ -1,0 +1,39 @@
+.content{
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+app-card{
+    display: flex;
+    align-items: stretch;
+}
+
+@media (min-width:320px)  { 
+    app-card{
+    flex-basis: 41%
+}}
+
+/* ------ Tablets View ------- */
+
+@media (min-width:600px)  { 
+    app-card{
+        flex-basis:28%
+    }
+}
+
+/* ----- Tablet / Landscape View ------ */
+
+@media (min-width:1025px) {
+    app-card{
+        flex-basis:20%
+    }
+ }
+
+.cards{
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+}

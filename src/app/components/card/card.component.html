@@ -1,0 +1,14 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+        <mat-card-subtitle>© : {{copyright}} </mat-card-subtitle>
+    </mat-card-header>
+    <div *ngIf='media_type==="image"'>
+        <img (load)='showSpinner = false' mat-card-image class="img" src="{{url}}" alt="Photo of a {{title}}">
+        <mat-spinner *ngIf='showSpinner'></mat-spinner>
+    </div>
+    <h2 *ngIf='media_type!=="image"'>No Image Avaliable...</h2>
+    <mat-card-actions>
+        <button (click)='showMoreInfo()' mat-button>Show More Info</button>
+    </mat-card-actions>
+</mat-card>
