@@ -8,4 +8,5 @@ export class LoginService {
   constructor() { }
 
   userLogged = false
+  
 }

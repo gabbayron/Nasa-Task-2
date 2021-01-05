@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>{{data.explanation}}</div>
 <div mat-dialog-actions>
-  <button  mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-close>Close</button>
+  <button (click)='showFullImage()' mat-button >Show full view image</button>
 </div>

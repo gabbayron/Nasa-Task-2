@@ -1,0 +1,10 @@
+<div style="text-align: center;">
+    <h1 mat-dialog-title>{{data.title}}</h1>
+    <div mat-dialog-content>
+        <iframe  *ngIf='data.type ==="video" ' [src]='safeUrl' frameborder="0" allowfullscreen></iframe> <br>
+        <img *ngIf='data.type ==="image" ' src={{data.image}} alt="picture of {{data.title}} ">
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Close</button>
+    </div>
+</div>

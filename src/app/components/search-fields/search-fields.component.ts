@@ -14,24 +14,32 @@ export class SearchFieldsComponent implements OnInit {
   show = false
   searchForm: FormGroup
   maxDate = new Date()
+  recentSearches = []
+
   ngOnInit(): void {
     this.searchForm = this.fb.group({
       start_date: ['', Validators.required],
       end_date: ['', Validators.required]
     })
-  }
+  };
+
+  addToRecentSearchArray(start_date, end_date) {
+    this.recentSearches = [{ start_date, end_date }, ...this.recentSearches.slice(0, 4)]
+    localStorage.recent_search = JSON.stringify(this.recentSearches)
+  };
 
   searchImage() {
     this.show = true
-    this.nasaApi.getImages(
-      moment(this.searchForm.value.start_date).format('YYYY-MM-DD'), moment(this.searchForm.value.end_date).format('YYYY-MM-DD')).
-      subscribe(
-        (res: []) => {
-          this.nasaApi.apiData = res
-          this.show = false
-        },
-        err => console.log(err)
-      )
-  }
+    const start_date_format = moment(this.searchForm.value.start_date).format('YYYY-MM-DD');
+    const end_date_format = moment(this.searchForm.value.end_date).format('YYYY-MM-DD');
+    this.addToRecentSearchArray(start_date_format, end_date_format);
+    this.nasaApi.getImages(start_date_format, end_date_format).subscribe(
+      (res: []) => {
+        this.nasaApi.apiData = res
+        this.show = false
+      },
+      err => console.log(err)
+    );
+  };
 
 }

@@ -1,0 +1,15 @@
+
+* custom validator for email
+
+
+*****
+
+Dev : 
+    * only 1 h1 in every page
+    * return variable and not function for mat-error at login component
+    * Read content prejection / ng content (at angular uni)
+    * create feature module for angular material imports
+    * padding
+
+
+

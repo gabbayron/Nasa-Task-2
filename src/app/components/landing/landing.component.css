@@ -1,0 +1,19 @@
+.landingContent{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    margin: 5% auto;
+}
+.mat-display-2{
+    margin: 5% 0;
+}
+
+.actions{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}

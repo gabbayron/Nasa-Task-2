@@ -12,14 +12,14 @@ app-card{
 
 @media (min-width:320px)  { 
     app-card{
-    flex-basis: 41%
+    flex-basis: 80%
 }}
 
 /* ------ Tablets View ------- */
 
 @media (min-width:600px)  { 
     app-card{
-        flex-basis:28%
+        flex-basis:38%
     }
 }
 
@@ -27,7 +27,7 @@ app-card{
 
 @media (min-width:1025px) {
     app-card{
-        flex-basis:20%
+        flex-basis:33%
     }
  }
 

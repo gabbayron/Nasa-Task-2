@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="mat-display-2">Welcome To Nasa Image Finder</h1>
+    <h2 class="mat-display-2">Welcome To Nasa Image Finder</h2>
     <mat-icon>lock</mat-icon>
     <h1><u>Login</u></h1>
     <mat-icon>lock</mat-icon>
@@ -8,23 +8,27 @@
     <form [formGroup]='loginForm'>
         <mat-form-field appearance="fill">
             <mat-label>Enter your email</mat-label>
-            <input pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" formControlName='email' matInput
-                placeholder="EX : moshep@moveo.co.il">
+            <input (change)='getMailErrorMessage()' pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                formControlName='email' matInput placeholder="EX : moshep@moveo.co.il">
             <mat-icon matSuffix>mail</mat-icon>
-            <mat-error *ngIf="loginForm.controls.email.invalid">{{getMailErrorMessage()}}</mat-error>
+            <mat-error *ngIf="loginForm.controls.email.invalid">{{formEmailErrorMsg}}</mat-error>
         </mat-form-field> <br>
         <mat-form-field appearance="fill">
             <mat-label>Enter your password</mat-label>
-            <input formControlName='password'  matInput [type]="hide ? 'password' : 'text'">
-            <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordErrorMsg()}}</mat-error>
+            <input (change)='getPasswordErrorMsg()' formControlName='password' matInput
+                [type]="hide ? 'password' : 'text'">
+            <mat-error *ngIf="loginForm.controls.password.invalid">{{formPasswordErrorMsg}}</mat-error>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
     </form>
-    <button (click)='handleSubmit()' [disabled]='loginForm.invalid' mat-raised-button color="accent">
+    <button (click)='handleSubmit()' mat-raised-button color="accent">
         <mat-icon>person_search</mat-icon>Login
+    </button> <br>
+    <button (click)='r.navigateByUrl("landing")' mat-raised-button color="accent">
+        Back To Home Page
     </button>
 
 </div>
