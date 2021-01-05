@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NasaApiService } from 'src/app/services/nasa-api.service';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchHistoryDialogComponent } from '../search-history-dialog/search-history-dialog.component';
 
 @Component({
   selector: 'app-search-fields',
@@ -10,23 +12,37 @@ import * as moment from 'moment';
 })
 export class SearchFieldsComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, public nasaApi: NasaApiService) { }
+  constructor(private fb: FormBuilder, public nasaApi: NasaApiService, private dialog: MatDialog) { }
   show = false
   searchForm: FormGroup
   maxDate = new Date()
-  recentSearches = []
+  searchHistory = []
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required]
+      start_date: [this.nasaApi.selectedSearchHistory ? this.nasaApi.selectedSearchHistory.start_date : '', Validators.required],
+      end_date: [this.nasaApi.selectedSearchHistory ? this.nasaApi.selectedSearchHistory.end_date : '', Validators.required]
     })
+    this.searchHistory = localStorage.recent_search ? JSON.parse(localStorage.recent_search) : []
   };
 
+  //  ---------- Search History ------------
+
   addToRecentSearchArray(start_date, end_date) {
-    this.recentSearches = [{ start_date, end_date }, ...this.recentSearches.slice(0, 4)]
-    localStorage.recent_search = JSON.stringify(this.recentSearches)
+    this.searchHistory = [{ start_date, end_date }, ...this.searchHistory.slice(0, 4)]
+    localStorage.recent_search = JSON.stringify(this.searchHistory)
   };
+
+  openSearchHistoryDialog() {
+    this.dialog.open(SearchHistoryDialogComponent, {
+      data: {
+        searchHistory: this.searchHistory
+      }
+    })
+  }
+
+  //  ---------- Search Image ------------
+
 
   searchImage() {
     this.show = true

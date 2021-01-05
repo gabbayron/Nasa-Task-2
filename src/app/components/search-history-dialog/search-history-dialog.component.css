@@ -1,0 +1,19 @@
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+button{
+    text-align: left;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px 40px;}
+
+li{
+    margin-top: 10%;
+}

@@ -1,0 +1,14 @@
+<div class="content">
+    <h1 mat-dialog-title>Search History</h1>
+    <div mat-dialog-content>
+        Your last 5 searches:
+        <ul>
+            <li *ngFor='let history of data.searchHistory'>
+                <button (click)='selectHistory(history.start_date,history.end_date)' mat-dialog-close
+                    mat-stroked-button>From : {{history.start_date}} <br> To:
+                    {{history.end_date}}</button>
+            </li>
+            <li> <button mat-dialog-close mat-stroked-button>Close</button> </li>
+        </ul>
+    </div>
+</div>

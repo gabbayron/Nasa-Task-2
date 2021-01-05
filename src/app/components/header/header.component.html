@@ -1,9 +1,14 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>grade</mat-icon>
-    </button>
-    <span>Nasa 2nd Task</span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>grade</mat-icon>
+    <div style="    display: flex;align-items: center;">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>grade</mat-icon>
+        </button>
+        <span>Nasa 2nd Task</span>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>grade</mat-icon>
+        </button>
+    </div>
+    <button (click)='r.navigateByUrl("landing")' mat-button>
+        <mat-icon>home</mat-icon>
     </button>
 </mat-toolbar>

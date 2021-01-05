@@ -14,6 +14,8 @@ import { CardComponent } from './components/card/card.component';
 import { MaterialModule } from './modules/material/material.module';
 import { LandingComponent } from './components/landing/landing.component';
 import { DailyImgDialogComponent } from './components/daily-img-dialog/daily-img-dialog.component';
+import { SearchHistoryDialogComponent } from './components/search-history-dialog/search-history-dialog.component';
+import { UserLoggedSnackbarComponent } from './components/user-logged-snackbar/user-logged-snackbar.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { DailyImgDialogComponent } from './components/daily-img-dialog/daily-img
     DescriptionDialogComponent,
     LandingComponent,
     DailyImgDialogComponent,
+    SearchHistoryDialogComponent,
+    UserLoggedSnackbarComponent,
     
   ],
   imports: [

@@ -2,7 +2,7 @@
     <form [formGroup]='searchForm'>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Choose a date</mat-label>
-            <input [max]='maxDate' formControlName='start_date' matInput [matDatepicker]="picker1">
+            <input [(ngModel)]='nasaApi.selectedSearchHistory && nasaApi.selectedSearchHistory.start_date'  [max]='maxDate' formControlName='start_date' matInput [matDatepicker]="picker1">
             <mat-datepicker-toggle matSuffix [for]="picker1">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
@@ -10,7 +10,7 @@
         </mat-form-field> <br>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Choose a date</mat-label>
-            <input [max]='maxDate' [min]='searchForm.value.start_date' formControlName='end_date' matInput
+            <input [(ngModel)]='nasaApi.selectedSearchHistory && nasaApi.selectedSearchHistory.end_date'  [max]='maxDate' [min]='searchForm.value.start_date' formControlName='end_date' matInput
                 [matDatepicker]="picker2">
             <mat-datepicker-toggle matSuffix [for]="picker2">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -18,11 +18,17 @@
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
     </form>
-    <button [disabled]='searchForm.invalid' (click)='searchImage()' mat-raised-button color="primary">
-        Search
-        <mat-icon>search</mat-icon>
-    </button>
-    <mat-spinner *ngIf='nasaApi.apiData.length < 0&& show'></mat-spinner>
+    <div class="actions">
+        <button [disabled]='searchForm.invalid' (click)='searchImage()' mat-raised-button color="primary">
+            Search
+            <mat-icon>search</mat-icon>
+        </button>
+        <button (click)='openSearchHistoryDialog()' mat-raised-button color="primary">
+            Show Search History
+            <mat-icon>history</mat-icon>
+        </button>
+    </div>
+    <mat-spinner *ngIf='nasaApi.apiData.length < 0 && show'></mat-spinner>
 
 
 </div>
