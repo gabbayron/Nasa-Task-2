@@ -17,13 +17,13 @@ export class LandingComponent implements OnInit {
   constructor(public nasaApi: NasaApiService,
     private dialog: MatDialog, public r: Router,
     private loginService: LoginService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) { }
   dailyImage = []
   ngOnInit(): void {
     //  ------- Open user logged snackbar--------
     this._snackBar.openFromComponent(UserLoggedSnackbarComponent, {
-      duration: 4000,
+      duration: 3000,
     });
 
 
@@ -31,7 +31,6 @@ export class LandingComponent implements OnInit {
     this.nasaApi.getImageOfToday().subscribe(
       (res: []) => {
         this.dailyImage = res
-        console.log(this.dailyImage)
       },
       err => console.log(err)
     );

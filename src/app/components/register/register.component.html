@@ -1,0 +1,85 @@
+<div class="container">
+    <h2 class="mat-display-2">Welcome To Nasa Image Finder</h2>
+    <h1><u>Register</u></h1>
+    <h2 style="color: red;" *ngIf='errorMsg'>{{errorMsg}}</h2>
+    <h2>Enter your user details here :</h2>
+    <form [formGroup]='registerForm'>
+
+        <div class='couple'>
+            <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input formControlName='fname' matInput placeholder="Israeli">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="registerForm.controls.fname.invalid"></mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input formControlName='lname' matInput placeholder="Israeli">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="registerForm.controls.lname.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="couple">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter your email</mat-label>
+                <input (change)='getMailErrorMessage()' pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                    formControlName='email' matInput placeholder="EX : moshep@moveo.co.il">
+                <mat-icon matSuffix>mail</mat-icon>
+                <mat-error *ngIf="registerForm.controls.email.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field> <br>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input (change)='getPasswordErrorMsg()' formControlName='password' matInput
+                    [type]="hide ? 'password' : 'text'">
+                <mat-error *ngIf="registerForm.controls.password.invalid">{{formPasswordErrorMsg}}</mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="couple">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Address</mat-label>
+                <input formControlName='address' matInput placeholder="Tel Aviv">
+                <mat-icon matSuffix>home</mat-icon>
+                <mat-error *ngIf="registerForm.controls.address.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Enter ID</mat-label>
+                <input formControlName='id' matInput placeholder="348102354">
+                <mat-icon matSuffix>home</mat-icon>
+                <mat-error *ngIf="registerForm.controls.id.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="couple">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Birthdate</mat-label>
+                <input formControlName='birthDate' matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Your Phone Number</mat-label>
+                <input type='number' formControlName='phoneNumber' matInput placeholder="0541234567">
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="registerForm.controls.phoneNumber.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+        </div>
+
+    </form>
+    <button [disabled]='registerForm.invalid' (click)='handleRegister()' mat-raised-button color="accent">
+        <mat-icon>person_search</mat-icon>Register
+    </button> <br>
+
+    <button (click)='r.navigateByUrl("landing")' mat-raised-button color="accent">
+        Back To Home Page
+    </button> <br>
+
+</div>

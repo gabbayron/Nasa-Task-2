@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,23 +11,18 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, public r: Router) { }
+  constructor(private fb: FormBuilder, private loginService: LoginService, public r: Router, public db: FirestoreService) { }
 
   loginForm: FormGroup
   hide = true
   errorMsg: string
   formEmailErrorMsg: string
-  formPasswordErrorMsg
+  formPasswordErrorMsg: string
 
-  private userDetails = {
-    email: 'test@moveo.group',
-    password: '123'
-  }
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(3)]]
-      //  make custom mail validator
     })
   }
 
@@ -44,19 +40,21 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit() {
-    if (this.loginForm.value.email === 'skill@moveo.co.il') {
-      this.loginService.userLogged = true
-      localStorage.user = true
-      this.r.navigateByUrl('')
-      return
-    }
-    if (this.loginForm.value.email === this.userDetails.email && this.loginForm.value.password === this.userDetails.password) {
-      this.r.navigateByUrl('')
-      this.loginService.userLogged = true
-    } else {
-      this.errorMsg = 'Wrong Email or password'
-      setTimeout(() => { this.errorMsg = '' }, 1500);
-    }
+    // if (this.loginForm.value.email === 'skill@moveo.co.il') {
+    //   this.loginService.userLogged = true
+    //   localStorage.user = true
+    //   this.r.navigateByUrl('')
+    //   return
+    // }
+    // if (this.loginForm.value.email === this.userDetails.email && this.loginForm.value.password === this.userDetails.password) {
+    //   this.r.navigateByUrl('')
+    //   this.loginService.userLogged = true
+    // } else {
+    //   this.errorMsg = 'Wrong Email or password'
+    //   setTimeout(() => { this.errorMsg = '' }, 1500);
+    // }
+
+    this.db.SignIn(this.loginForm.value)
   }
 
 }

@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LoginService } from '../services/login.service';
+import { map, take, tap } from 'rxjs/operators';
+import { FirestoreService } from '../services/firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
-  constructor(private loginService: LoginService, private r: Router) { }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      localStorage.user ? this.loginService.userLogged = true : null
+  constructor( private r: Router, private db: FirestoreService) { }
+  canActivate(next, state): Observable<boolean> {
 
-    if (!this.loginService.userLogged) {
-      this.r.navigateByUrl('landing')
-    }
-    return this.loginService.userLogged;
+    return this.db.user$.pipe(
+      take(1),
+      map(user => !!user),
+      tap(loggedIn => {
+        if (!loggedIn) {
+          console.log('Access Denied');
+          this.r.navigateByUrl('register')
+        }
+      })
+    )
   }
 }
 

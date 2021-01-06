@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "nasa-task": {
+      "hosting": {
+        "nasa": [
+          "nasa-task"
+        ]
+      }
+    }
+  }
+}

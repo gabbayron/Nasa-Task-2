@@ -4,20 +4,20 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    height: 80%;
-}
-mat-form-field{
     width: 100%;
+}
+
+form{
+    width: 80%;
 }
 
 .mat-display-2{
     margin-top: 4%;
 }
 
-.actions{
+.couple{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    width: 60%;
 }

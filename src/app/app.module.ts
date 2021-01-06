@@ -16,6 +16,12 @@ import { LandingComponent } from './components/landing/landing.component';
 import { DailyImgDialogComponent } from './components/daily-img-dialog/daily-img-dialog.component';
 import { SearchHistoryDialogComponent } from './components/search-history-dialog/search-history-dialog.component';
 import { UserLoggedSnackbarComponent } from './components/user-logged-snackbar/user-logged-snackbar.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -31,7 +37,7 @@ import { UserLoggedSnackbarComponent } from './components/user-logged-snackbar/u
     DailyImgDialogComponent,
     SearchHistoryDialogComponent,
     UserLoggedSnackbarComponent,
-    
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,11 @@ import { UserLoggedSnackbarComponent } from './components/user-logged-snackbar/u
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
