@@ -8,7 +8,7 @@ import { FirestoreService } from '../services/firestore.service';
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
-  constructor( private r: Router, private db: FirestoreService) { }
+  constructor(private r: Router, private db: FirestoreService) { }
   canActivate(next, state): Observable<boolean> {
 
     return this.db.user$.pipe(

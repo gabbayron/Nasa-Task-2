@@ -1,5 +1,5 @@
 <div class="content">
-    <h1 style="margin-top: 6%;" class="mat-display-2">Welcome To Nasa Image Finder</h1>
+    <h1 style="margin-top: 6%;" class="mat-display-2">Welcome {{db.username}} To Nasa Image Finder</h1>
     <app-search-fields></app-search-fields>
     <div class="cards">
         <app-card *ngFor='let card of nasaApi.apiData' [title]='card.title' [url]='card.url'

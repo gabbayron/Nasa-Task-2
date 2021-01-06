@@ -71,15 +71,20 @@
                 <mat-icon matSuffix>phone</mat-icon>
                 <mat-error *ngIf="registerForm.controls.phoneNumber.invalid">{{formEmailErrorMsg}}</mat-error>
             </mat-form-field>
+            <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button> {{fileInput.value}}
+            <input hidden (change)="detectFiles($event)" #fileInput type="file" id="file">
         </div>
 
     </form>
     <button [disabled]='registerForm.invalid' (click)='handleRegister()' mat-raised-button color="accent">
         <mat-icon>person_search</mat-icon>Register
     </button> <br>
-
+    <button (click)='r.navigateByUrl("login")' mat-raised-button color="accent">
+        Have An Account? Login
+    </button> <br>
     <button (click)='r.navigateByUrl("landing")' mat-raised-button color="accent">
         Back To Home Page
     </button> <br>
+
 
 </div>

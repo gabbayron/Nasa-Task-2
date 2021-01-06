@@ -22,7 +22,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RegisterComponent } from './components/register/register.component';
-
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import { RegisterComponent } from './components/register/register.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]

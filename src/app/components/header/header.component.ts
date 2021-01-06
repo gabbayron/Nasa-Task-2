@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( public r : Router) { }
+  constructor( public r : Router , public db : FirestoreService) { }
 
   ngOnInit(): void {
   }

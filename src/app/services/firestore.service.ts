@@ -6,16 +6,18 @@ import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/app'
 import { Router } from '@angular/router';
 import { User } from '../interfaces';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
-
   user$: Observable<User>
   userData: Observable<any>
-
-  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private r: Router) {
+  userId: string
+  username: string
+  userSearchHistory
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private r: Router, private afdb: AngularFireDatabase) {
 
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -27,41 +29,78 @@ export class FirestoreService {
       })
     )
     this.user$ = afAuth.authState
-  }
-
-  createUser(userInfo) {
-    return this.db.collection('users').add({
-      fname: userInfo.fname,
-      lname: userInfo.lname,
-      email: userInfo.email,
-      password: userInfo.password,
-      address: userInfo.address,
-      id: userInfo.id,
-      birthDate: userInfo.birthDate,
-      phoneNumber: userInfo.phoneNumber
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        console.log(user)
+        this.userId = user.uid
+        this.username = user.displayName
+      }
     })
   }
+
+  private uploadTask: firebase.default.storage.UploadTask
+
+  pushUpload(upload) {
+    let storageRef = firebase.default.storage().ref();
+    this.uploadTask = storageRef.child(`/uploads/${this.userId}`).put(upload.file);
+    this.uploadTask.on(firebase.default.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+        upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      },
+      (error) => {
+        console.log(error)
+      },
+      () => {
+        upload.url = this.uploadTask.snapshot.downloadURL
+        upload.name = upload.file.name
+      }
+    )
+  }
+
+
+  addSearchHistory() {
+    if (!this.userId) return;
+    this.db.collection('search_history').doc(`${this.userId}`).set({
+      history: this.userSearchHistory
+    })
+  }
+
+  getSearchHistory(): any {
+    if (!this.userId) return
+    this.db.collection('search_history').doc(`${this.userId}`).get().subscribe(
+      (res: any) => {
+        res.data() ? this.userSearchHistory = res.data().history : this.userSearchHistory = []
+      }
+    )
+  }
+
 
   /* Sign up */
   SignUp(userInfo) {
-    this.afAuth.createUserWithEmailAndPassword(userInfo.email, userInfo.password)
-      .then(res => {
-        console.log('You are Successfully signed up!', res);
-        this.r.navigateByUrl('')
-      })
-      .catch(error => {
-        console.log('Something is wrong:', error.message);
-      });
-    return this.db.collection('users').add({
-      fname: userInfo.fname,
-      lname: userInfo.lname,
-      email: userInfo.email,
-      password: userInfo.password,
-      address: userInfo.address,
-      id: userInfo.id,
-      birthDate: userInfo.birthDate,
-      phoneNumber: userInfo.phoneNumber
-    })
+
+    // return this.db.collection('users').add({
+    //   fname: userInfo.fname,
+    //   lname: userInfo.lname,
+    //   email: userInfo.email,
+    //   password: userInfo.password,
+    //   address: userInfo.address,
+    //   id: userInfo.id,
+    //   birthDate: userInfo.birthDate,
+    //   phoneNumber: userInfo.phoneNumber
+    // })
+    this.afAuth.createUserWithEmailAndPassword(userInfo.email, userInfo.password).then(cred => {
+      const userRef: AngularFirestoreDocument<any> = this.db.doc(`users/${cred.user.uid}`)
+      const data = {
+        uid: cred.user.uid,
+        email: cred.user.email,
+        displayName: `${userInfo.fname} ${userInfo.lname}`,
+        photoURL: cred.user.photoURL
+      }
+      this.r.navigateByUrl('')
+      return userRef.set(data, { merge: true })
+    }).catch(err => alert(err.message))
+
   }
 
   /* Sign in */
@@ -92,9 +131,14 @@ export class FirestoreService {
 
 
   async googleSignIn() {
-    const provider = new firebase.default.auth.GoogleAuthProvider()
-    const credential = await this.afAuth.signInWithPopup(provider)
-    return this.updateUserData(credential.user)
+    try {
+      const provider = new firebase.default.auth.GoogleAuthProvider()
+      const credential = await this.afAuth.signInWithPopup(provider)
+      return this.updateUserData(credential.user)
+
+    } catch (error) {
+      throw error
+    }
   }
 
   async facebookSignIn() {
@@ -102,8 +146,6 @@ export class FirestoreService {
     const credential = await this.afAuth.signInWithPopup(provider)
     return this.updateUserData(credential.user)
   }
-
-
 
   async signOut() {
     await this.afAuth.signOut();

@@ -11,4 +11,7 @@
     <button (click)='r.navigateByUrl("landing")' mat-button>
         <mat-icon>home</mat-icon>
     </button>
+    <button *ngIf='db.user$ | async' (click)='db.signOut()' mat-button>
+       Log Out
+    </button>
 </mat-toolbar>

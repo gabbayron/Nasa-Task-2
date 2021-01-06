@@ -4,6 +4,7 @@ import { NasaApiService } from 'src/app/services/nasa-api.service';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchHistoryDialogComponent } from '../search-history-dialog/search-history-dialog.component';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-search-fields',
@@ -12,31 +13,30 @@ import { SearchHistoryDialogComponent } from '../search-history-dialog/search-hi
 })
 export class SearchFieldsComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, public nasaApi: NasaApiService, private dialog: MatDialog) { }
+  constructor(private fb: FormBuilder, public nasaApi: NasaApiService, private dialog: MatDialog, public db: FirestoreService) { }
   show = false
   searchForm: FormGroup
   maxDate = new Date()
-  searchHistory = []
 
   ngOnInit(): void {
+    this.db.getSearchHistory()
     this.searchForm = this.fb.group({
       start_date: [this.nasaApi.selectedSearchHistory ? this.nasaApi.selectedSearchHistory.start_date : '', Validators.required],
       end_date: [this.nasaApi.selectedSearchHistory ? this.nasaApi.selectedSearchHistory.end_date : '', Validators.required]
     })
-    this.searchHistory = localStorage.recent_search ? JSON.parse(localStorage.recent_search) : []
   };
 
   //  ---------- Search History ------------
 
   addToRecentSearchArray(start_date, end_date) {
-    this.searchHistory = [{ start_date, end_date }, ...this.searchHistory.slice(0, 4)]
-    localStorage.recent_search = JSON.stringify(this.searchHistory)
+    this.db.userSearchHistory = [{ start_date, end_date }, ...this.db.userSearchHistory.slice(0, 4)]
+    this.db.addSearchHistory()
   };
 
   openSearchHistoryDialog() {
     this.dialog.open(SearchHistoryDialogComponent, {
       data: {
-        searchHistory: this.searchHistory
+        searchHistory: this.db.userSearchHistory
       }
     })
   }

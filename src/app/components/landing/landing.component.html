@@ -11,9 +11,16 @@
         <button (click)='showImageOfTheDay()' mat-raised-button color="accent">
             Watch Image Of The Day
         </button> <br>
-        <button (click)='r.navigateByUrl("login")' mat-raised-button color="accent">
-            Login
-        </button>
+        <div *ngIf='db.user$ | async as user; else login'>
+            <button (click)='r.navigateByUrl("")' mat-raised-button color="primary">
+                Move To Search Engine
+            </button>
+        </div>
+        <ng-template #login>
+            <button (click)='r.navigateByUrl("login")' mat-raised-button color="primary">
+                Login!
+            </button>
+        </ng-template>
     </div>
 
 </div>

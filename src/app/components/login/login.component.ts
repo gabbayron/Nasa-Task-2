@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -11,7 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, public r: Router, public db: FirestoreService) { }
+  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth, public r: Router, public db: FirestoreService) { }
 
   loginForm: FormGroup
   hide = true
@@ -20,6 +21,8 @@ export class LoginComponent implements OnInit {
   formPasswordErrorMsg: string
 
   ngOnInit(): void {
+
+    this.afAuth.authState.subscribe(res => res?.uid ? this.r.navigateByUrl('') : null)
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(3)]]

@@ -9,7 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 const materialModules = [
   MatDatepickerModule,
@@ -21,7 +22,7 @@ const materialModules = [
   MatInputModule,
   MatToolbarModule,
   MatCardModule,
-  MatSnackBarModule
+  MatSnackBarModule,
 ]
 
 @NgModule({
