@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/services/firestore.service';
-import { LoginService } from 'src/app/services/login.service';
 import { NasaApiService } from 'src/app/services/nasa-api.service';
 import { DailyImgDialogComponent } from '../daily-img-dialog/daily-img-dialog.component';
 import { UserLoggedSnackbarComponent } from '../user-logged-snackbar/user-logged-snackbar.component';
@@ -17,7 +16,6 @@ export class LandingComponent implements OnInit {
 
   constructor(public nasaApi: NasaApiService,
     private dialog: MatDialog, public r: Router,
-    private loginService: LoginService,
     private _snackBar: MatSnackBar,
     public db : FirestoreService
   ) { }
@@ -29,7 +27,6 @@ export class LandingComponent implements OnInit {
     });
 
 
-    localStorage.user ? this.loginService.userLogged = true : null
     this.nasaApi.getImageOfToday().subscribe(
       (res: []) => {
         this.dailyImage = res

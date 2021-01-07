@@ -4,3 +4,40 @@
 
 redirect after register with google / facebook
 add login ui with social media
+
+
+Dan Code Review{
+
+------ Firebase Service -------------
+
+// TODO:: for unkonwn types you add 'any' type (userInfo: any)  
+*** Result - Done !
+
+// TODO:: user info can be saved in 'User' model with using interface and then you just need to declare: userInfo: User 
+*** Result - created new interface and defined according to user info keys
+
+// TODO:: try to remove unnessecary imports from your constructors
+*** Result - Removed !
+
+
+// TODO:: save res.data in a variable instead of call to function twice or more
+*** Result - makes a lot of sense. Done!
+
+
+// TODO:: try to remove unnessecary imports from your .ts files (here: AngularFirestoreDocument); ----- CHECK -----
+*** Result - Done
+
+// TODO:: are you using this service ? if the only usage in this service is to be notified about user login or not, use local storage token/isLogin key
+*** Result - removed service 
+
+--------- Nasa Api Service ---------
+
+  // TODO:: best practice is not to save urls in our code, use the environment obj `${environment.BASE_URL}
+*** Result --- Moved to environment.ts and added BASE_URL key
+
+------------- App components ts ----------
+// TODO:: usually we are not using 'tests' in our project, you can remove them from your's project
+*** Result - Deleted
+
+}
+

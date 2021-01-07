@@ -5,8 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/app'
 import { User } from '../interfaces';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +15,11 @@ export class FirestoreService {
   userData: Observable<any>
   userId: string
   username: string
-  userSearchHistory
-  userPhoto
-  userInfo
+  userSearchHistory: { start_date: string, end_date: string }[]
+  userPhoto: string
+  userInfo: User
 
-  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private r: Router, private afdb: AngularFireDatabase) {
-
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private r: Router,) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -95,7 +93,8 @@ export class FirestoreService {
     if (!this.userId) return
     this.db.collection('search_history').doc(`${this.userId}`).get().subscribe(
       (res: any) => {
-        res.data() ? this.userSearchHistory = res.data().history : this.userSearchHistory = []
+        const result = res.data()
+        result ? this.userSearchHistory = result : this.userSearchHistory = []
       }
     )
   }

@@ -1,26 +1,4 @@
-/* .container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-}
 
-form{
-    width: 80%;
-}
-
-.mat-display-2{
-    margin-top: 4%;
-}
-
-.couple{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-} */
 
 .content{
     margin: 0 auto;

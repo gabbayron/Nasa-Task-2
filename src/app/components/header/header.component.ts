@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public r: Router, public db: FirestoreService) { }
 
-  userPhoto
+  userPhoto : string
 
   ngOnInit(): void {
   }

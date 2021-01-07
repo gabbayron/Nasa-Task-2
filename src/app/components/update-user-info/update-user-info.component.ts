@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { customValidationService } from './validators'
@@ -19,7 +18,6 @@ export class UpdateUserInfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public r: Router, public db: FirestoreService,
-    private afAuth: AngularFireAuth,
     private snackBar: MatSnackBar
   ) { }
 
@@ -27,6 +25,8 @@ export class UpdateUserInfoComponent implements OnInit {
   formEmailErrorMsg: string
   formPasswordErrorMsg: string
   errorMsg: string
+  selectedFile: FileList
+  currentUpload: any
 
   ngOnInit(): void {
 
@@ -65,8 +65,6 @@ export class UpdateUserInfoComponent implements OnInit {
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
   }
-  selectedFile: FileList
-  currentUpload
   detectFiles(event) {
     this.selectedFile = event.target.files
     console.log(this.selectedFile)
