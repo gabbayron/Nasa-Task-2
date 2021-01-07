@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/app'
-import { Router } from '@angular/router';
 import { User } from '../interfaces';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
@@ -18,6 +18,7 @@ export class FirestoreService {
   username: string
   userSearchHistory
   userPhoto
+  userInfo
 
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private r: Router, private afdb: AngularFireDatabase) {
 
@@ -34,8 +35,8 @@ export class FirestoreService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         console.log(user)
+        this.userInfo = user
         this.userPhoto = user.photoURL
-        this.r.navigateByUrl('')
         this.userId = user.uid
         this.username = user.displayName
       }
@@ -63,6 +64,12 @@ export class FirestoreService {
   }
 
 
+  updateInfo(userInfo) {
+    if (!this.userId) return
+    this.db.collection('users').doc(`${this.userId}`).update(userInfo)
+  }
+
+
   addSearchHistory() {
     if (!this.userId) return;
     this.db.collection('search_history').doc(`${this.userId}`).set({
@@ -82,17 +89,6 @@ export class FirestoreService {
 
   /* Sign up */
   SignUp(userInfo) {
-
-    // return this.db.collection('users').add({
-    //   fname: userInfo.fname,
-    //   lname: userInfo.lname,
-    //   email: userInfo.email,
-    //   password: userInfo.password,
-    //   address: userInfo.address,
-    //   id: userInfo.id,
-    //   birthDate: userInfo.birthDate,
-    //   phoneNumber: userInfo.phoneNumber
-    // })
     this.afAuth.createUserWithEmailAndPassword(userInfo.email, userInfo.password).then(cred => {
       const userRef: AngularFirestoreDocument<any> = this.db.doc(`users/${cred.user.uid}`)
       const data = {

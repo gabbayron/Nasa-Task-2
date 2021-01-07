@@ -49,10 +49,6 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
     FormsModule,
     HttpClientModule,
     MaterialModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
     NgxAuthFirebaseUIModule.forRoot(environment.firebase,
       () => 'Nasa Task', {
       enableFirestoreSync: true, // enable/disable autosync users with firestore
@@ -69,7 +65,11 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
       // Plus protected routes are still protected even though user is connected.
       guardProtectedRoutesUntilEmailIsVerified: true,
       enableEmailVerification: true, // default: true
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

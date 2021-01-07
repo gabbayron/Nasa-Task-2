@@ -4,7 +4,12 @@
     <button (click)='r.navigateByUrl("landing")' mat-button>
         <mat-icon>home</mat-icon>
     </button>
-    <img src="{{db.userPhoto}}" alt="">
+    <button [matMenuTriggerFor]="menu" *ngIf='db.user$ |async' mat-fab color="primary">
+        <img src="{{db.userPhoto}}" alt="">
+    </button>
+    <mat-menu #menu="matMenu">
+        <button (click)='r.navigateByUrl("update")' mat-menu-item>Update Personal Info</button>
+    </mat-menu>
     <button *ngIf='db.user$ | async' (click)='db.signOut()' mat-button>
         Log Out
     </button>

@@ -1,1 +1,53 @@
-<p>update-user-info works!</p>
+<div class="container">
+    <h2 class="mat-display-1">Update info :</h2>
+    <h2>Enter your user details here :</h2>
+    <form [formGroup]='registerForm'>
+        <div class='couple'>
+            <mat-form-field appearance="fill">
+                <mat-label> Name</mat-label>
+                <input formControlName='name' matInput placeholder="Israeli">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="registerForm.controls.name.invalid"></mat-error>
+            </mat-form-field>
+        </div>
+        <div class="couple">
+            <mat-form-field appearance="fill">
+                <mat-label>Home Address</mat-label>
+                <input formControlName='address' matInput placeholder="Tel Aviv">
+                <mat-icon matSuffix>home</mat-icon>
+                <mat-error *ngIf="registerForm.controls.address.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Enter ID</mat-label>
+                <input formControlName='id' matInput placeholder="348102354">
+                <mat-icon matSuffix>home</mat-icon>
+                <mat-error *ngIf="registerForm.controls.id.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="couple">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Birthdate</mat-label>
+                <input formControlName='birthDate' matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Enter Your Phone Number</mat-label>
+                <input type='number' formControlName='phone' matInput placeholder="0541234567">
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="registerForm.controls.phone.invalid">{{formEmailErrorMsg}}</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <button type="button" mat-raised-button (click)="fileInput.click()">Choose Profile Picture</button>
+    {{fileInput.value}}
+    <input hidden (change)="detectFiles($event)" #fileInput type="file" id="file"> <br>
+    <button [disabled]='registerForm.invalid' (click)='updateUserInfo()' mat-raised-button color="accent">
+        <mat-icon>person_search</mat-icon>Update Information
+    </button> <br>
+
+</div>

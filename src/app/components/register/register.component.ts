@@ -62,8 +62,5 @@ printError(event) {
 }
 
 }
-class Upload {
-  constructor(public file: File) { }
-}
 
 
