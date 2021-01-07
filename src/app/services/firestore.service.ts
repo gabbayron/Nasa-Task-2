@@ -63,6 +63,20 @@ export class FirestoreService {
     )
   }
 
+  downloadProfileImage() {
+    const storageRef = firebase.default.storage().ref()
+    storageRef.child(`/uploads/${this.userId}`).getDownloadURL().then((url: any) => {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function (event) {
+        var blob = xhr.response;
+      }
+      xhr.open('GET', url);
+      xhr.send();
+      console.log(url)
+      this.userPhoto = url
+    }).catch(err => console.log(err))
+  }
 
   updateInfo(userInfo) {
     if (!this.userId) return
@@ -88,69 +102,70 @@ export class FirestoreService {
 
 
   /* Sign up */
-  SignUp(userInfo) {
-    this.afAuth.createUserWithEmailAndPassword(userInfo.email, userInfo.password).then(cred => {
-      const userRef: AngularFirestoreDocument<any> = this.db.doc(`users/${cred.user.uid}`)
-      const data = {
-        uid: cred.user.uid,
-        email: cred.user.email,
-        displayName: `${userInfo.fname} ${userInfo.lname}`,
-        photoURL: cred.user.photoURL
-      }
-      this.r.navigateByUrl('')
-      return userRef.set(data, { merge: true })
-    }).catch(err => alert(err.message))
+  // SignUp(userInfo) {
+  //   this.afAuth.createUserWithEmailAndPassword(userInfo.email, userInfo.password).then(cred => {
+  //     const userRef: AngularFirestoreDocument<any> = this.db.doc(`users/${cred.user.uid}`)
+  //     const data = {
+  //       uid: cred.user.uid,
+  //       email: cred.user.email,
+  //       displayName: `${userInfo.fname} ${userInfo.lname}`,
+  //       photoURL: cred.user.photoURL
+  //     }
+  //     this.r.navigateByUrl('')
+  //     return userRef.set(data, { merge: true })
+  //   }).catch(err => alert(err.message))
 
-  }
+  // }
 
-  /* Sign in */
-  SignIn(userInfo) {
-    this.afAuth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
-      .then(res => {
-        console.log('You are Successfully logged in!', res);
-        this.r.navigateByUrl('')
-      })
-      .catch(err => {
-        alert(`mething is wrong: ${err.message}`);
-        console.log(err)
-      });
-  }
+  // /* Sign in */
+  // SignIn(userInfo) {
+  //   this.afAuth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
+  //     .then(res => {
+  //       console.log('You are Successfully logged in!', res);
+  //       this.r.navigateByUrl('')
+  //     })
+  //     .catch(err => {
+  //       alert(`mething is wrong: ${err.message}`);
+  //       console.log(err)
+  //     });
+  // }
 
-  private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.db.doc(`users/${user.uid}`)
-    const data = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    }
-    this.r.navigateByUrl('')
-    console.log(user)
-    return userRef.set(data, { merge: true })
-  }
+  // private updateUserData(user) {
+  //   const userRef: AngularFirestoreDocument<any> = this.db.doc(`users/${user.uid}`)
+  //   const data = {
+  //     uid: user.uid,
+  //     email: user.email,
+  //     displayName: user.displayName,
+  //     photoURL: user.photoURL
+  //   }
+  //   this.r.navigateByUrl('')
+  //   console.log(user)
+  //   return userRef.set(data, { merge: true })
+  // }
 
 
-  async googleSignIn() {
-    try {
-      const provider = new firebase.default.auth.GoogleAuthProvider()
-      const credential = await this.afAuth.signInWithPopup(provider)
-      return this.updateUserData(credential.user)
+  // async googleSignIn() {
+  //   try {
+  //     const provider = new firebase.default.auth.GoogleAuthProvider()
+  //     const credential = await this.afAuth.signInWithPopup(provider)
+  //     return this.updateUserData(credential.user)
 
-    } catch (error) {
-      throw error
-    }
-  }
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
 
-  async facebookSignIn() {
-    const provider = new firebase.default.auth.FacebookAuthProvider()
-    const credential = await this.afAuth.signInWithPopup(provider)
-    return this.updateUserData(credential.user)
-  }
+  // async facebookSignIn() {
+  //   const provider = new firebase.default.auth.FacebookAuthProvider()
+  //   const credential = await this.afAuth.signInWithPopup(provider)
+  //   return this.updateUserData(credential.user)
+  // }
 
   async signOut() {
     await this.afAuth.signOut();
     this.userPhoto = ''
     return this.r.navigateByUrl('landing')
   }
+
 
 }

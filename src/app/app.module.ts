@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
-import { LoginComponent } from './components/login/login.component';
+// import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchFieldsComponent } from './components/search-fields/search-fields.component';
@@ -29,7 +29,7 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent,
+    // LoginComponent,
     MainComponent,
     SearchFieldsComponent,
     CardComponent,

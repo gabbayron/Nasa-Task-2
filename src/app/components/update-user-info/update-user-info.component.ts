@@ -45,7 +45,8 @@ export class UpdateUserInfoComponent implements OnInit {
     setTimeout(() => {
       this.r.navigateByUrl('')
     }, 2500);
-    return this.db.updateInfo(this.registerForm.value)
+    this.db.updateInfo(this.registerForm.value)
+    this.db.downloadProfileImage()
   }
 
 
