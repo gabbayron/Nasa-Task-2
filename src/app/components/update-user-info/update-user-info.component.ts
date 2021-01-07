@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { customValidationService } from './validators'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-user-info',
@@ -15,12 +16,16 @@ import { customValidationService } from './validators'
 
 export class UpdateUserInfoComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, public r: Router, public db: FirestoreService, private afAuth: AngularFireAuth) { }
+  constructor(
+    private fb: FormBuilder,
+    public r: Router, public db: FirestoreService,
+    private afAuth: AngularFireAuth,
+    private snackBar: MatSnackBar
+  ) { }
 
   registerForm: FormGroup
   formEmailErrorMsg: string
   formPasswordErrorMsg: string
-  hide = true
   errorMsg: string
 
   ngOnInit(): void {
@@ -34,24 +39,12 @@ export class UpdateUserInfoComponent implements OnInit {
     })
   }
 
-  getMailErrorMessage() {
-    if (this.registerForm.controls.email.hasError('required') && this.registerForm.controls.email.dirty) {
-      return this.formEmailErrorMsg = 'Email Is Required';
-    }
-    return this.registerForm.controls.email.hasError('pattern') ? this.formEmailErrorMsg = 'Email Is Not Valid' : '';
-  }
-  getPasswordErrorMsg() {
-    if (this.registerForm.controls.password.hasError('required') && this.registerForm.controls.password.dirty) {
-      return this.formPasswordErrorMsg = 'Password Is Required';
-    }
-    return this.registerForm.get('password').hasError('minlength') ? this.formPasswordErrorMsg = 'Password must be at least 3 characters' : '';
-  }
-
-  handleRegister() {
-    this.db.SignUp(this.registerForm.value)
-  }
 
   updateUserInfo() {
+    this.openSnackBar(`${this.db.userInfo.displayName} details updated successfully`, 'Close')
+    setTimeout(() => {
+      this.r.navigateByUrl('')
+    }, 2500);
     return this.db.updateInfo(this.registerForm.value)
   }
 
@@ -84,7 +77,16 @@ export class UpdateUserInfoComponent implements OnInit {
     this.currentUpload = new Upload(file)
     this.db.pushUpload(this.currentUpload)
   }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2500,
+    });
+  }
+
 }
+
+
 
 class Upload {
   constructor(public file: File) { }

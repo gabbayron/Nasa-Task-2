@@ -11,3 +11,8 @@
     display: flex;
     justify-content: space-around;
 }
+
+@media (min-width:600px)  { 
+    .actions{
+    justify-content: space-evenly;
+}}

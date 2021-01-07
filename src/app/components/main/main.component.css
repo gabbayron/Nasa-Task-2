@@ -27,7 +27,12 @@ app-card{
 
 @media (min-width:1025px) {
     app-card{
-        flex-basis:33%
+        flex-basis:28%
+    }
+ }
+@media (min-width:1400px) {
+    app-card{
+        flex-basis:21%
     }
  }
 
