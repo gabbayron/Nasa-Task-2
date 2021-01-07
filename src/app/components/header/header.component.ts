@@ -9,7 +9,9 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( public r : Router , public db : FirestoreService) { }
+  constructor(public r: Router, public db: FirestoreService) { }
+
+  userPhoto
 
   ngOnInit(): void {
   }

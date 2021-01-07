@@ -51,36 +51,19 @@ export class RegisterComponent implements OnInit {
   handleRegister() {
     this.db.SignUp(this.registerForm.value)
   }
-  srcResult
-  onFileSelected(e) {
-    const inputNode: any = document.querySelector('#file');
 
-    if (typeof (FileReader) !== 'undefined') {
-      const reader = new FileReader();
 
-      reader.onload = (e: any) => {
-        this.srcResult = e.target.files;
-        console.log(this.srcResult)
-      };
+  printUser(event) {
+    this.r.navigateByUrl('')
+}
 
-      reader.readAsArrayBuffer(inputNode.files[0]);
-    }
-  }
-  selectedFile: FileList
-  currentUpload
-  detectFiles(event) {
-    this.selectedFile = event.target.files
-    console.log(this.selectedFile)
-    this.uploadFile()
-  }
-
-  uploadFile() {
-    let file = this.selectedFile.item(0)
-    this.currentUpload = new Upload(file)
-    this.db.pushUpload(this.currentUpload)
-  }
+printError(event) {
+    console.error(event);
+}
 
 }
 class Upload {
   constructor(public file: File) { }
 }
+
+

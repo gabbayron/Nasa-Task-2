@@ -17,6 +17,8 @@ export class FirestoreService {
   userId: string
   username: string
   userSearchHistory
+  userPhoto
+
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth, private r: Router, private afdb: AngularFireDatabase) {
 
     this.user$ = this.afAuth.authState.pipe(
@@ -32,6 +34,8 @@ export class FirestoreService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         console.log(user)
+        this.userPhoto = user.photoURL
+        this.r.navigateByUrl('')
         this.userId = user.uid
         this.username = user.displayName
       }
@@ -149,6 +153,7 @@ export class FirestoreService {
 
   async signOut() {
     await this.afAuth.signOut();
+    this.userPhoto = ''
     return this.r.navigateByUrl('landing')
   }
 
