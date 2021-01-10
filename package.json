@@ -25,6 +25,7 @@
     "@angular/platform-browser": "~11.0.1",
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/router": "^11.0.5",
+    "agm-direction": "^0.8.8",
     "angular-material-fileupload": "^3.0.1",
     "firebase": "^8.2.1",
     "material-design-icons": "^3.0.1",

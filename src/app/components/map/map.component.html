@@ -4,10 +4,32 @@
         <mat-label>Search Location</mat-label>
         <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
             matInput placeholder="Ex : Tel Aviv">
-    </mat-form-field>
-    <agm-map  [zoom]='15' [styles]="styles" [latitude]='lat' [longitude]='long'>
-        <agm-marker *ngFor='let marker of markersArray' [latitude]="marker.lat" [longitude]="marker.long">
+    </mat-form-field> <br>
+    <h2>Directions : </h2>
+    <div class="directions">
+        <mat-form-field appearance="fill">
+            <mat-label>Origin</mat-label>
+            <input ngx-google-places-autocomplete #placesRef="ngx-places"
+                (onAddressChange)="handleOriginDirectionChange($event)" matInput placeholder="Ex : Tel Aviv">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Destination</mat-label>
+            <input ngx-google-places-autocomplete #placesRef="ngx-places"
+                (onAddressChange)="handleDestDirectionChange($event)" matInput placeholder="Ex : Tel Aviv">
+        </mat-form-field>
+        <button style="height: 75%; width: 15%;" type="button" mat-raised-button color='primary'
+            (click)="searchDirection()">
+            Search <mat-icon>search</mat-icon>
+        </button>
+    </div>
+
+
+    <agm-map [zoom]='15' [styles]="mapStyles" [latitude]='mapService.mapCenterLat'
+        [longitude]='mapService.mapCenterLng'>
+        <agm-direction [travelMode]='mapService.travelMode' [origin]="mapService.origin"
+            [destination]="mapService.destination">
+        </agm-direction>
+        <agm-marker *ngFor='let marker of mapService.markersArray' [latitude]="marker.lat" [longitude]="marker.lng">
         </agm-marker>
     </agm-map>
-
 </div>

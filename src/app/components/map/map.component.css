@@ -19,3 +19,9 @@ agm-map{
 .mat-display-2{
     margin: 1% 0;
 }
+
+.directions {
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+}

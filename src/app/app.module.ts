@@ -27,6 +27,7 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './components/map/map.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -73,11 +74,12 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     AgmCoreModule.forRoot({
       apiKey: environment.googleMapsApiKey
     }),
+    GooglePlaceModule,
+    AgmDirectionModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    GooglePlaceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
