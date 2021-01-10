@@ -18,7 +18,11 @@ export class MapComponent implements OnInit {
   mapStyles = styles
   origin: { lat: number, lng: number } = { lat: 0, lng: 0 }
   destination: { lat: number, lng: number } = { lat: 0, lng: 0 }
-
+  showDirections = false
+  mapTypeControlOptions = {
+    mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
+  }
+  
   ngOnInit(): void {
   }
   handleAddressChange(address) {

@@ -19,15 +19,22 @@
         </mat-form-field>
 
     </div>
-    <button style="height: 6%;width: 10%;" type="button" mat-raised-button color='primary' (click)="searchDirection()">
+    <button type="button" mat-raised-button color='primary' (click)="searchDirection()">
         Search <mat-icon>search</mat-icon>
+    </button>
+    <br>
+    <button *ngIf='!showDirections' type="button" mat-raised-button color='primary' (click)="showDirections = true">
+        Show route <mat-icon>map</mat-icon>
+    </button>
+    <button *ngIf='showDirections' type="button" mat-raised-button color='primary' (click)="showDirections = false">
+        Hide route <mat-icon>map</mat-icon>
     </button>
     <br>
 
 
-    <agm-map [zoom]='15' [latitude]='mapService.mapCenterLat'
-        [longitude]='mapService.mapCenterLng'>
-        <agm-direction [travelMode]='mapService.travelMode' [origin]="mapService.origin"
+    <agm-map [scaleControl]='true' [fullscreenControl]='true'  [mapTypeControl]='true' [mapTypeControlOptions]='mapTypeControlOptions' [zoom]='15'
+        [latitude]='mapService.mapCenterLat' [longitude]='mapService.mapCenterLng'>
+        <agm-direction *ngIf='showDirections' [travelMode]='mapService.travelMode' [origin]="mapService.origin"
             [destination]="mapService.destination">
         </agm-direction>
 

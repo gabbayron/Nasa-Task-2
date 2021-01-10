@@ -6,5 +6,3 @@
 ### Firestore
 ### Google Maps api 
 
-
-
