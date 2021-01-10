@@ -15,7 +15,7 @@ export class FirestoreService {
   userData: Observable<any>
   userId: string
   username: string
-  userSearchHistory: { start_date: string, end_date: string }[]
+  userSearchHistory: any
   userPhoto: string
   userInfo: User
 
@@ -93,7 +93,7 @@ export class FirestoreService {
     this.db.collection('search_history').doc(`${this.userId}`).get().subscribe(
       (res: any) => {
         const result = res.data()
-        result ? this.userSearchHistory = result : this.userSearchHistory = []
+        result ? this.userSearchHistory = result.history : this.userSearchHistory = []
       }
     )
   }

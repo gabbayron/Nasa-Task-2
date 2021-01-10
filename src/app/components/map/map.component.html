@@ -5,7 +5,7 @@
         <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
             matInput placeholder="Ex : Tel Aviv">
     </mat-form-field> <br>
-    <h2>Directions : </h2>
+    <h2><u>Search Routes :</u> </h2>
     <div class="directions">
         <mat-form-field appearance="fill">
             <mat-label>Origin</mat-label>
@@ -17,18 +17,20 @@
             <input ngx-google-places-autocomplete #placesRef="ngx-places"
                 (onAddressChange)="handleDestDirectionChange($event)" matInput placeholder="Ex : Tel Aviv">
         </mat-form-field>
-        <button style="height: 75%; width: 15%;" type="button" mat-raised-button color='primary'
-            (click)="searchDirection()">
-            Search <mat-icon>search</mat-icon>
-        </button>
+
     </div>
+    <button style="height: 6%;width: 10%;" type="button" mat-raised-button color='primary' (click)="searchDirection()">
+        Search <mat-icon>search</mat-icon>
+    </button>
+    <br>
 
 
-    <agm-map [zoom]='15' [styles]="mapStyles" [latitude]='mapService.mapCenterLat'
-        [longitude]='mapService.mapCenterLng'>
+    <agm-map [zoom]='15' [latitude]='mapService.mapCenterLat' [longitude]='mapService.mapCenterLng'>
+
         <agm-direction [travelMode]='mapService.travelMode' [origin]="mapService.origin"
             [destination]="mapService.destination">
         </agm-direction>
+
         <agm-marker *ngFor='let marker of mapService.markersArray' [latitude]="marker.lat" [longitude]="marker.lng">
         </agm-marker>
     </agm-map>
