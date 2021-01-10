@@ -4,7 +4,7 @@
     width: 100%;
     text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
 }
@@ -14,4 +14,8 @@ agm-map{
     width: 80%;
     display: flex;
     justify-content: center;
+}
+
+.mat-display-2{
+    margin: 1% 0;
 }

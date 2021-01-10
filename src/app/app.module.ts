@@ -26,6 +26,7 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './components/map/map.component';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MapComponent } from './components/map/map.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    GooglePlaceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

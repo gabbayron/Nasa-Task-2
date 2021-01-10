@@ -1,10 +1,13 @@
 <div class="content">
     <h2 class="mat-display-2">Maps Api Example : </h2>
-    <!-- <div style="height: 100%; display: flex;"> -->
-    <agm-map [zoom]='15' [latitude]='lat' [longitude]='long'>
-        <agm-marker [latitude]="lat" [longitude]="long">
+    <mat-form-field appearance="fill">
+        <mat-label>Search Location</mat-label>
+        <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+            matInput placeholder="Ex : Tel Aviv">
+    </mat-form-field>
+    <agm-map  [zoom]='15' [styles]="styles" [latitude]='lat' [longitude]='long'>
+        <agm-marker *ngFor='let marker of markersArray' [latitude]="marker.lat" [longitude]="marker.long">
         </agm-marker>
-
     </agm-map>
-    <!-- </div> -->
+
 </div>
