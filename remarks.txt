@@ -6,7 +6,8 @@ redirect after register with google / facebook
 add login ui with social media
 
 
-Dan Code Review{
+Dan Code Review {
+----------------
 
 ------ Firebase Service -------------
 

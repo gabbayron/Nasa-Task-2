@@ -8,6 +8,7 @@
         <img src="{{db.userPhoto}}" alt="">
     </button>
     <mat-menu #menu="matMenu">
+        <button (click)='r.navigateByUrl("maps")' mat-menu-item>Maps</button>
         <button (click)='r.navigateByUrl("update")' mat-menu-item>Update Personal Info</button>
     </mat-menu>
     <button *ngIf='db.user$ | async' (click)='db.signOut()' mat-button>

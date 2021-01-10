@@ -24,6 +24,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RegisterComponent } from './components/register/register.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
+import { AgmCoreModule } from '@agm/core';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
     UserLoggedSnackbarComponent,
     RegisterComponent,
     UpdateUserInfoComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,9 @@ import { UpdateUserInfoComponent } from './components/update-user-info/update-us
       // Plus protected routes are still protected even though user is connected.
       guardProtectedRoutesUntilEmailIsVerified: true,
       enableEmailVerification: true, // default: true
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsApiKey
     }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

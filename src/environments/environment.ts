@@ -12,7 +12,8 @@ export const environment = {
     messagingSenderId: "679482038325",
     appId: "1:679482038325:web:626a7760979e0e3c2f797c"
   },
-  BASE_URL: "https://api.nasa.gov/planetary/apod?api_key=SXawfzxoI7QNVA2s7d4TOmyhFnudTOpghg4aYxnm"
+  BASE_URL: "https://api.nasa.gov/planetary/apod?api_key=SXawfzxoI7QNVA2s7d4TOmyhFnudTOpghg4aYxnm",
+  googleMapsApiKey : "AIzaSyDvMt4q7yx3Nw7MhYBh_ktyOjxwOE5vn0g"
 };
 
 /*

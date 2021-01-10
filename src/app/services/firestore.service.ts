@@ -32,7 +32,6 @@ export class FirestoreService {
     this.user$ = afAuth.authState
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        console.log(user)
         this.userInfo = user
         this.userPhoto = user.photoURL
         this.userId = user.uid
