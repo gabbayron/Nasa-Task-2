@@ -25,8 +25,8 @@
     <br>
 
 
-    <agm-map [zoom]='15' [latitude]='mapService.mapCenterLat' [longitude]='mapService.mapCenterLng'>
-
+    <agm-map [zoom]='15' [latitude]='mapService.mapCenterLat'
+        [longitude]='mapService.mapCenterLng'>
         <agm-direction [travelMode]='mapService.travelMode' [origin]="mapService.origin"
             [destination]="mapService.destination">
         </agm-direction>
